@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form/ui/shared/gaps.dart';
+import 'package:flutter_form/ui/widgets/card.dart';
 
 import '../shared/theme.dart';
 
@@ -41,21 +42,15 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
             direction: Axis.vertical,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Image(
-                image: AssetImage('assets/logo.png'),
-              ),
-              gapH(24),
-              Text("Halaman daftar Mahasiswa",
-                  style: blackTextStyle.copyWith(
-                      fontSize: 18, fontWeight: FontWeight.normal)),
-              gapH(10),
-              Text("Ngga tahu cara buat tabelnya aku wkwkwk",
-                  style: blackTextStyle.copyWith(
-                      fontSize: 18, fontWeight: FontWeight.normal)),
-              gapH(10),
-              Text("Ini aja yang kedua aneh",
-                  style: blackTextStyle.copyWith(
-                      fontSize: 18, fontWeight: FontWeight.bold))
+              MahasiswaCard(
+                name: "Mahardika Putra",
+                nim: "24060121130076",
+                email: "test@gmail.com",
+                price: "123213",
+                workPeriod: "5 Tahun",
+                rating: "esad",
+                onTap: () {},
+              )
             ],
           )),
     );
