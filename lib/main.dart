@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form/ui/pages/about_us.dart';
 import 'package:flutter_form/ui/pages/input_form.dart';
 import 'package:flutter_form/ui/pages/start_screen.dart';
+import 'package:flutter_form/ui/pages/daftar_mahasiswa.dart';
 
 import 'cubit/cubit.dart';
 
@@ -29,7 +30,8 @@ class _MainAppState extends State<MainApp> {
       child: MaterialApp(debugShowCheckedModeBanner: false, routes: {
         '/': (context) => const StartScreen(),
         '/input-form': (context) => const InputForm(),
-        '/about-us': (context) => const AboutUs()
+        '/about-us': (context) => const AboutUs(),
+        '/daftar-mahasiswa': (context) => const DaftarMahasiswa()
       }),
     );
   }

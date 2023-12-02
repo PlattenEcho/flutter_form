@@ -49,7 +49,7 @@ class _StartScreenState extends State<StartScreen> {
                   flex: 1,
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 30),
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 3),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -60,6 +60,15 @@ class _StartScreenState extends State<StartScreen> {
                             endColor: kPrimaryColor,
                             onPressed: () {
                               Navigator.pushNamed(context, '/input-form');
+                            }),
+                        gapH(21),
+                        Button(
+                            text: "Daftar Mahasiswa",
+                            textColor: kWhiteColor,
+                            startColor: kPrimary2Color,
+                            endColor: kPrimaryColor,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/daftar-mahasiswa');
                             }),
                         gapH(21),
                         ButtonOutline(
