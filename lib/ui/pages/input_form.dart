@@ -82,7 +82,13 @@ class _InputFormState extends State<InputForm> {
                         textColor: kWhiteColor,
                         startColor: kPrimary2Color,
                         endColor: kPrimaryColor,
-                        onPressed: () {})
+                        onPressed: () {}),
+                    gapH(21),
+                    ButtonOutline(
+                        text: "Daftar Mahasiswa",
+                        textColor: kPrimary2Color,
+                        borderColor: kPrimaryColor,
+                        onPressed: () {}),
                   ],
                 ),
               )
