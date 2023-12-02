@@ -1,4 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form/ui/models/mahasiswa.dart';
+import 'package:flutter_form/ui/services/sqflite.dart';
 import 'package:flutter_form/ui/shared/gaps.dart';
 import 'package:flutter_form/ui/shared/theme.dart';
 import 'package:flutter_form/ui/widgets/buttons.dart';
@@ -78,17 +81,65 @@ class _InputFormState extends State<InputForm> {
                         horizontalPadding: 0),
                     gapH32,
                     Button(
-                        text: "Submit",
-                        textColor: kWhiteColor,
-                        startColor: kPrimary2Color,
-                        endColor: kPrimaryColor,
-                        onPressed: () {}),
-                    gapH(21),
-                    // ButtonOutline(
-                    //     text: "Daftar Mahasiswa",
-                    //     textColor: kPrimary2Color,
-                    //     borderColor: kPrimaryColor,
-                    //     onPressed: () {}),
+                      text: "Submit",
+                      textColor: kWhiteColor,
+                      startColor: kPrimary2Color,
+                      endColor: kPrimaryColor,
+                      onPressed: () async {
+                        String nama = _namaController.text;
+                        String nim = _nimController.text;
+                        String email = _emailController.text;
+
+                        // Validasi jika form tidak kosong
+                        if (nama.isNotEmpty &&
+                            nim.isNotEmpty &&
+                            email.isNotEmpty) {
+                          int result =
+                              await SqfLite.createMahasiswa(nama, nim, email);
+                          if (result != 0) {
+                            // Berhasil menyimpan data
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Berhasil Menyimpan Data"),
+                              ),
+                            );
+                          } else {
+                            // Gagal menyimpan data
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Gagal Menyimpan Data"),
+                              ),
+                            );
+                          }
+                        } else {
+                          // Tampilkan pesan jika form tidak lengkap
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Form harus diisi semua"),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    gapH(8),
+                    Center(
+                      child: RichText(
+                          text: TextSpan(
+                              style:
+                                  blackTextStyle.copyWith(color: Colors.black),
+                              children: <TextSpan>[
+                            const TextSpan(text: "Mau lihat list mahasiswa? "),
+                            TextSpan(
+                                text: "Klik di sini",
+                                style: blackTextStyle.copyWith(
+                                    color: kPrimary2Color),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/daftar-mahasiswa');
+                                  })
+                          ])),
+                    ),
                   ],
                 ),
               )

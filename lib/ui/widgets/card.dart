@@ -6,9 +6,6 @@ class MahasiswaCard extends StatelessWidget {
   final String name;
   final String nim;
   final String email;
-  final String price;
-  final String workPeriod;
-  final String rating;
   final Function() onTap;
 
   const MahasiswaCard({
@@ -16,9 +13,6 @@ class MahasiswaCard extends StatelessWidget {
     required this.name,
     required this.nim,
     required this.email,
-    required this.price,
-    required this.workPeriod,
-    required this.rating,
     required this.onTap,
   });
 
@@ -63,12 +57,13 @@ class MahasiswaCard extends StatelessWidget {
                 ),
                 gapH24,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width / 2 - 30,
+                          width: MediaQuery.of(context).size.width / 2 - 35,
                           child: ElevatedButton(
                             onPressed: () {
                               onTap();
@@ -83,7 +78,7 @@ class MahasiswaCard extends StatelessWidget {
                             child: Text(
                               'Edit',
                               style: whiteTextStyle.copyWith(
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: extraBold,
                               ),
                             ),
@@ -96,27 +91,36 @@ class MahasiswaCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 60,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            color: kRedColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  size: 15,
-                                  color: kWhiteColor,
+                          width: MediaQuery.of(context).size.width / 2 - 35,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                onTap();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: kRedColor,
+                                elevation: 0.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                onPressed: () {},
                               ),
-                            ],
-                          ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Delete',
+                                    style: whiteTextStyle.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: extraBold,
+                                    ),
+                                  ),
+                                  gapW4,
+                                  Icon(
+                                    Icons.delete,
+                                    color: kWhiteColor,
+                                    size: 18,
+                                  )
+                                ],
+                              )),
                         ),
                       ],
                     ),

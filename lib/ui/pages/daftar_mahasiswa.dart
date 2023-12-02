@@ -2,21 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form/ui/shared/gaps.dart';
 import 'package:flutter_form/ui/widgets/card.dart';
 
+import '../services/sqflite.dart';
 import '../shared/theme.dart';
 
 class DaftarMahasiswa extends StatefulWidget {
-  const DaftarMahasiswa({super.key});
+  const DaftarMahasiswa({Key? key}) : super(key: key);
 
   @override
   State<DaftarMahasiswa> createState() => _DaftarMahasiswaState();
 }
 
 class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
+  List<Map<String, dynamic>> mahasiswaList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMahasiswaData();
+  }
+
+  Future<void> fetchMahasiswaData() async {
+    final mahasiswaData = await SqfLite.getMahasiswa();
+    setState(() {
+      mahasiswaList = mahasiswaData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
@@ -30,29 +45,35 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
           ),
           elevation: 0.0),
       body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    'assets/bg.png',
-                  ),
-                  fit: BoxFit.cover)),
-          child: Flex(
-            direction: Axis.vertical,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MahasiswaCard(
-                name: "Mahardika Putra",
-                nim: "24060121130076",
-                email: "test@gmail.com",
-                price: "123213",
-                workPeriod: "5 Tahun",
-                rating: "esad",
-                onTap: () {},
-              )
-            ],
-          )),
+        margin: const EdgeInsets.symmetric(horizontal: 2.5),
+        child: Flex(
+          direction: Axis.vertical,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text("Daftar Mahasiswa",
+                style: blackTextStyle.copyWith(
+                    fontSize: 32, fontWeight: FontWeight.bold)),
+            gapH24,
+            Expanded(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                itemCount: mahasiswaList.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return MahasiswaCard(
+                    name: mahasiswaList[index]['nama'] ?? "",
+                    nim: mahasiswaList[index]['nim'] ?? "",
+                    email: mahasiswaList[index]['email'] ?? "",
+                    // ... other fields
+                    onTap: () {},
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
