@@ -5,7 +5,7 @@ double defaultMargin = 20.0;
 double defaultRadius = 10.0;
 
 Color kPrimaryColor = const Color(0xff31B9F6);
-Color kPrimary2Color = Color.fromARGB(255, 76, 155, 220);
+Color kPrimary2Color = const Color.fromARGB(255, 76, 155, 220);
 Color kPrimaryLightColor = const Color(0xff31B9F6);
 Color kPrimaryLight2Color = const Color(0xff9FE0FD);
 Color kWhiteColor = const Color(0xffFFFFFF);

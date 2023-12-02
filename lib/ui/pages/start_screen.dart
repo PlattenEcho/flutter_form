@@ -63,7 +63,7 @@ class _StartScreenState extends State<StartScreen> {
                             }),
                         gapH(21),
                         ButtonOutline(
-                            text: "About Us",
+                            text: "Tentang Kami",
                             textColor: kPrimary2Color,
                             borderColor: kPrimaryColor,
                             onPressed: () {

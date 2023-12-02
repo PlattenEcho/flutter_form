@@ -45,7 +45,7 @@ class NewForm extends StatelessWidget {
                 ),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: kPrimaryLightColor),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
                 hintText: hintText,
                 hintStyle: blackTextStyle.copyWith(color: Colors.grey)),
           ),
