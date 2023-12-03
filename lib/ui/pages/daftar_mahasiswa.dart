@@ -34,8 +34,9 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
     fetchMahasiswaData(); // Reload data after deletion
   }
 
-  void editMahasiswa(int id) {
-    Navigator.pushNamed(context, '/edit-mahasiswa', arguments: id);
+  void editMahasiswa(int id) async {
+    await Navigator.pushNamed(context, '/edit-mahasiswa', arguments: id);
+    fetchMahasiswaData(); // Refresh data setelah penyuntingan
   }
 
   @override

@@ -83,7 +83,8 @@ class _EditMahasiswaState extends State<EditMahasiswa> {
                         content: Text('Berhasil Memperbarui Data'),
                       ),
                     );
-                    Navigator.pop(context);
+                    Navigator.pop(context,
+                        true); // Gunakan Navigator.pop dengan nilai true
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
