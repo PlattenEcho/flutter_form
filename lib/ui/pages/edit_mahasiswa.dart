@@ -5,7 +5,11 @@ import 'package:flutter_form/ui/services/sqflite.dart';
 import 'package:flutter_form/ui/shared/theme.dart';
 
 class EditMahasiswa extends StatefulWidget {
-  const EditMahasiswa({Key? key}) : super(key: key);
+  final Map<String, dynamic> mahasiswaData;
+  final int arguments;
+  const EditMahasiswa(
+      {Key? key, required this.mahasiswaData, required this.arguments})
+      : super(key: key);
 
   @override
   _EditMahasiswaState createState() => _EditMahasiswaState();
@@ -20,16 +24,16 @@ class _EditMahasiswaState extends State<EditMahasiswa> {
   @override
   void initState() {
     super.initState();
-    _namaController = TextEditingController();
-    _nimController = TextEditingController();
-    _emailController = TextEditingController();
+    final mahasiswaData = widget.mahasiswaData;
+    mahasiswaId = widget.arguments;
+    _namaController = TextEditingController(text: mahasiswaData['nama']);
+    _nimController = TextEditingController(text: mahasiswaData['nim']);
+    _emailController = TextEditingController(text: mahasiswaData['email']);
   }
 
   @override
   Widget build(BuildContext context) {
-    // Retrieve the mahasiswaId from arguments
-    mahasiswaId = ModalRoute.of(context)!.settings.arguments as int;
-
+    // mahasiswaId = ModalRoute.of(context)!.settings.arguments as int;
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Mahasiswa'),

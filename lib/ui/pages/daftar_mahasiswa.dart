@@ -1,6 +1,7 @@
 // lib/pages/daftar_mahasiswa.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_form/ui/pages/edit_mahasiswa.dart';
 import 'package:flutter_form/ui/services/sqflite.dart';
 import 'package:flutter_form/ui/shared/gaps.dart';
 import 'package:flutter_form/ui/widgets/card.dart';
@@ -34,9 +35,18 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
     fetchMahasiswaData(); // Reload data after deletion
   }
 
-  void editMahasiswa(int id) async {
-    await Navigator.pushNamed(context, '/edit-mahasiswa', arguments: id);
-    fetchMahasiswaData(); // Refresh data setelah penyuntingan
+  void editMahasiswa(int id, Map<String, dynamic> mahasiswa) async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                EditMahasiswa(mahasiswaData: mahasiswa, arguments: id)));
+    // await Navigator.pushNamed(
+    //   context,
+    //   '/edit-mahasiswa',
+    //   arguments: id,
+    // );
+    fetchMahasiswaData();
   }
 
   @override
@@ -77,13 +87,14 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
+                  Map<String, dynamic> mahasiswa = mahasiswaList[index];
                   return MahasiswaCard(
                     name: mahasiswaList[index]['nama'] ?? "",
                     nim: mahasiswaList[index]['nim'] ?? "",
                     email: mahasiswaList[index]['email'] ?? "",
                     mahasiswaId: mahasiswaList[index]['id'],
                     onTap: () {
-                      editMahasiswa(mahasiswaList[index]['id']);
+                      editMahasiswa(mahasiswaList[index]['id'], mahasiswa);
                     },
                     onDelete: (int id) {
                       deleteMahasiswa(id);

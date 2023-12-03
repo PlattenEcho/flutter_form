@@ -34,7 +34,10 @@ class _MainAppState extends State<MainApp> {
           '/': (context) => const StartScreen(),
           '/input-form': (context) => const InputForm(),
           '/about-us': (context) => const AboutUs(),
-          '/edit-mahasiswa': (context) => EditMahasiswa(), // Add the new route
+          '/edit-mahasiswa': (context) => const EditMahasiswa(
+                mahasiswaData: {},
+                arguments: 0,
+              ),
           '/daftar-mahasiswa': (context) => const DaftarMahasiswa(),
         },
       ),
