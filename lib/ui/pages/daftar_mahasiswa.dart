@@ -1,8 +1,9 @@
+// lib/pages/daftar_mahasiswa.dart
+
 import 'package:flutter/material.dart';
+import 'package:flutter_form/ui/services/sqflite.dart';
 import 'package:flutter_form/ui/shared/gaps.dart';
 import 'package:flutter_form/ui/widgets/card.dart';
-
-import '../services/sqflite.dart';
 import '../shared/theme.dart';
 
 class DaftarMahasiswa extends StatefulWidget {
@@ -30,7 +31,11 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
 
   void deleteMahasiswa(int id) async {
     await SqfLite.deleteMahasiswa(id);
-    fetchMahasiswaData(); // Memuat ulang data setelah penghapusan
+    fetchMahasiswaData(); // Reload data after deletion
+  }
+
+  void editMahasiswa(int id) {
+    Navigator.pushNamed(context, '/edit-mahasiswa', arguments: id);
   }
 
   @override
@@ -38,30 +43,35 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: kBlackColor,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: kBlackColor,
           ),
-          elevation: 0.0),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0.0,
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 2.5),
         child: Flex(
           direction: Axis.vertical,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Daftar Mahasiswa",
-                style: blackTextStyle.copyWith(
-                    fontSize: 32, fontWeight: FontWeight.bold)),
-            gapH24,
+            Text(
+              "Daftar Mahasiswa",
+              style: blackTextStyle.copyWith(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 24),
             Expanded(
               child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 itemCount: mahasiswaList.length,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -71,10 +81,11 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
                     nim: mahasiswaList[index]['nim'] ?? "",
                     email: mahasiswaList[index]['email'] ?? "",
                     mahasiswaId: mahasiswaList[index]['id'],
-                    onTap: () {},
+                    onTap: () {
+                      editMahasiswa(mahasiswaList[index]['id']);
+                    },
                     onDelete: (int id) {
-                      deleteMahasiswa(
-                          id); // Panggil deleteMahasiswa dengan ID mahasiswa
+                      deleteMahasiswa(id);
                     },
                   );
                 },
