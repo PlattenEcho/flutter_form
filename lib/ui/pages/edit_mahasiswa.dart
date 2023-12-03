@@ -3,6 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form/ui/services/sqflite.dart';
 import 'package:flutter_form/ui/shared/theme.dart';
+import 'package:flutter_form/ui/widgets/buttons.dart';
+
+import '../shared/gaps.dart';
+import '../widgets/textfield.dart';
 
 class EditMahasiswa extends StatefulWidget {
   final Map<String, dynamic> mahasiswaData;
@@ -33,79 +37,80 @@ class _EditMahasiswaState extends State<EditMahasiswa> {
 
   @override
   Widget build(BuildContext context) {
-    // mahasiswaId = ModalRoute.of(context)!.settings.arguments as int;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Mahasiswa'),
+        title: Text(
+          'Edit Mahasiswa',
+          style: whiteTextStyle.copyWith(fontWeight: bold),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Nama:'),
-            TextField(
-              controller: _namaController,
-              decoration: InputDecoration(
-                hintText: 'Masukkan Nama',
-              ),
-            ),
-            SizedBox(height: 16),
-            Text('NIM:'),
-            TextField(
-              controller: _nimController,
-              decoration: InputDecoration(
-                hintText: 'Masukkan NIM',
-              ),
-            ),
-            SizedBox(height: 16),
-            Text('Email:'),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                hintText: 'Masukkan Email',
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                String nama = _namaController.text;
-                String nim = _nimController.text;
-                String email = _emailController.text;
+            NewForm(
+                controller: _namaController,
+                nama: "Nama",
+                hintText: "Masukkan Nama",
+                obscureText: false,
+                horizontalPadding: 0),
+            gapH8,
+            NewForm(
+                controller: _nimController,
+                nama: "NIM",
+                hintText: "Masukkan NIM",
+                obscureText: false,
+                horizontalPadding: 0),
+            gapH8,
+            NewForm(
+                controller: _emailController,
+                nama: "Email",
+                hintText: "Masukkan Email",
+                obscureText: false,
+                horizontalPadding: 0),
+            gapH32,
+            Button(
+                text: "Submit",
+                textColor: kWhiteColor,
+                startColor: kPrimary2Color,
+                endColor: kPrimaryColor,
+                onPressed: () async {
+                  String nama = _namaController.text;
+                  String nim = _nimController.text;
+                  String email = _emailController.text;
 
-                if (nama.isNotEmpty && nim.isNotEmpty && email.isNotEmpty) {
-                  int result = await SqfLite.updateMahasiswa(
-                    mahasiswaId,
-                    nama,
-                    nim,
-                    email,
-                  );
-
-                  if (result != 0) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Berhasil Memperbarui Data'),
-                      ),
+                  if (nama.isNotEmpty && nim.isNotEmpty && email.isNotEmpty) {
+                    int result = await SqfLite.updateMahasiswa(
+                      mahasiswaId,
+                      nama,
+                      nim,
+                      email,
                     );
-                    Navigator.pop(context,
-                        true); // Gunakan Navigator.pop dengan nilai true
+
+                    if (result != 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Berhasil Memperbarui Data'),
+                        ),
+                      );
+                      Navigator.pop(context,
+                          true); // Gunakan Navigator.pop dengan nilai true
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Gagal Memperbarui Data'),
+                        ),
+                      );
+                    }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Gagal Memperbarui Data'),
+                        content: Text('Form harus diisi semua'),
                       ),
                     );
                   }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Form harus diisi semua'),
-                    ),
-                  );
-                }
-              },
-              child: Text('Simpan Perubahan'),
-            ),
+                }),
           ],
         ),
       ),

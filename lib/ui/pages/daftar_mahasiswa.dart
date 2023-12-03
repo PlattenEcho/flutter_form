@@ -1,9 +1,6 @@
-// lib/pages/daftar_mahasiswa.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form/ui/pages/edit_mahasiswa.dart';
 import 'package:flutter_form/ui/services/sqflite.dart';
-import 'package:flutter_form/ui/shared/gaps.dart';
 import 'package:flutter_form/ui/widgets/card.dart';
 import '../shared/theme.dart';
 
@@ -41,11 +38,6 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
         MaterialPageRoute(
             builder: (context) =>
                 EditMahasiswa(mahasiswaData: mahasiswa, arguments: id)));
-    // await Navigator.pushNamed(
-    //   context,
-    //   '/edit-mahasiswa',
-    //   arguments: id,
-    // );
     fetchMahasiswaData();
   }
 
@@ -82,7 +74,7 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
             const SizedBox(height: 24),
             Expanded(
               child: ListView.builder(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: mahasiswaList.length,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,

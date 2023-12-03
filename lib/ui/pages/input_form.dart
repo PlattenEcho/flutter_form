@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form/ui/models/mahasiswa.dart';
 import 'package:flutter_form/ui/services/sqflite.dart';
 import 'package:flutter_form/ui/shared/gaps.dart';
 import 'package:flutter_form/ui/shared/theme.dart';
@@ -90,7 +89,6 @@ class _InputFormState extends State<InputForm> {
                         String nim = _nimController.text;
                         String email = _emailController.text;
 
-                        // Validasi jika form tidak kosong
                         if (nama.isNotEmpty &&
                             nim.isNotEmpty &&
                             email.isNotEmpty) {
