@@ -29,8 +29,8 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
   }
 
   void deleteMahasiswa(int id) async {
-  await SqfLite.deleteMahasiswa(id);
-  fetchMahasiswaData(); // Memuat ulang data setelah penghapusan
+    await SqfLite.deleteMahasiswa(id);
+    fetchMahasiswaData(); // Memuat ulang data setelah penghapusan
   }
 
   @override
@@ -61,7 +61,7 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
             gapH24,
             Expanded(
               child: ListView.builder(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: mahasiswaList.length,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -71,10 +71,10 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
                     nim: mahasiswaList[index]['nim'] ?? "",
                     email: mahasiswaList[index]['email'] ?? "",
                     mahasiswaId: mahasiswaList[index]['id'],
-                    // ... other fields
                     onTap: () {},
                     onDelete: (int id) {
-                      deleteMahasiswa(id); // Panggil deleteMahasiswa dengan ID mahasiswa
+                      deleteMahasiswa(
+                          id); // Panggil deleteMahasiswa dengan ID mahasiswa
                     },
                   );
                 },

@@ -34,7 +34,7 @@ class MahasiswaCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.blue[50],
                 borderRadius: BorderRadius.circular(10)),
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,22 +104,23 @@ class MahasiswaCard extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text('Konfirmasi'),
-                                      content: Text('Apakah Anda yakin ingin menghapus mahasiswa ini?'),
+                                      title: const Text('Konfirmasi'),
+                                      content: const Text(
+                                          'Apakah Anda yakin ingin menghapus mahasiswa ini?'),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop(
                                                 false); // Menutup dialog dengan nilai false (tidak jadi menghapus)
                                           },
-                                          child: Text('Tidak'),
+                                          child: const Text('Tidak'),
                                         ),
                                         TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop(
                                                 true); // Menutup dialog dengan nilai true (akan menghapus)
                                           },
-                                          child: Text('Ya'),
+                                          child: const Text('Ya'),
                                         ),
                                       ],
                                     );
