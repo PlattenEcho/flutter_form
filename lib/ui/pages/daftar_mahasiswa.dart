@@ -28,6 +28,11 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
     });
   }
 
+  void deleteMahasiswa(int id) async {
+  await SqfLite.deleteMahasiswa(id);
+  fetchMahasiswaData(); // Memuat ulang data setelah penghapusan
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,8 +70,12 @@ class _DaftarMahasiswaState extends State<DaftarMahasiswa> {
                     name: mahasiswaList[index]['nama'] ?? "",
                     nim: mahasiswaList[index]['nim'] ?? "",
                     email: mahasiswaList[index]['email'] ?? "",
+                    mahasiswaId: mahasiswaList[index]['id'],
                     // ... other fields
                     onTap: () {},
+                    onDelete: (int id) {
+                      deleteMahasiswa(id); // Panggil deleteMahasiswa dengan ID mahasiswa
+                    },
                   );
                 },
               ),

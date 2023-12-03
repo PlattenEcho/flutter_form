@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form/ui/models/mahasiswa.dart';
 import 'package:flutter_form/ui/shared/gaps.dart';
 import 'package:flutter_form/ui/shared/theme.dart';
 
@@ -6,7 +7,9 @@ class MahasiswaCard extends StatelessWidget {
   final String name;
   final String nim;
   final String email;
+  final int mahasiswaId;
   final Function() onTap;
+  final Function(int) onDelete;
 
   const MahasiswaCard({
     super.key,
@@ -14,6 +17,8 @@ class MahasiswaCard extends StatelessWidget {
     required this.nim,
     required this.email,
     required this.onTap,
+    required this.mahasiswaId,
+    required this.onDelete,
   });
 
   @override
@@ -94,7 +99,37 @@ class MahasiswaCard extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 2 - 35,
                           child: ElevatedButton(
                               onPressed: () {
-                                onTap();
+                                // Menampilkan dialog konfirmasi sebelum menghapus
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Konfirmasi'),
+                                      content: Text('Apakah Anda yakin ingin menghapus mahasiswa ini?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(
+                                                false); // Menutup dialog dengan nilai false (tidak jadi menghapus)
+                                          },
+                                          child: Text('Tidak'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(
+                                                true); // Menutup dialog dengan nilai true (akan menghapus)
+                                          },
+                                          child: Text('Ya'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ).then((shouldDelete) {
+                                  // Jika shouldDelete bernilai true, hapus data mahasiswa
+                                  if (shouldDelete ?? false) {
+                                    onDelete(mahasiswaId);
+                                  }
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: kRedColor,
